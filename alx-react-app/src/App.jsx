@@ -6,6 +6,8 @@ import './index.css'
 import WelcomeMessage from './WelcomeMessage'
 
 
+
+
 function App() {
   
 
@@ -13,10 +15,9 @@ function App() {
     
     <>
       <WelcomeMessage/>
-       
     </>
      
-  )
+  );
 }
 
 export default App
