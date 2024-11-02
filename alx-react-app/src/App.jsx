@@ -25,6 +25,7 @@ function App() {
     
       <MainContent />  
       <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
+      <UserProfile name="Ntshovelo" age="23" bio=" I am a programmer who specialise in Front-end development and this is my React progress " />
       <Footer />
     
      
