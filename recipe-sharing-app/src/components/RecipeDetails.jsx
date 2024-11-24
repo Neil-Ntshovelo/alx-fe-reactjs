@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecipeStore } from '../stores/useRecipeStore';
+import { useRecipeStore } from './recipeStore';
 import EditRecipeForm from './EditRecipeForm';
 import DeleteRecipeButton from './DeleteRecipeButton';
 import { useParams } from 'react-router-dom';
