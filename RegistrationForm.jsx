@@ -57,7 +57,7 @@ const RegistrationForm = () => {
                     type="text"
                     name="username"
                     id="username"
-                    value={formData.username} // Set value to username from formData
+                    value={username} // Set value to username from formData
                     onChange={handleChange}
                 />
                 {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
@@ -68,7 +68,7 @@ const RegistrationForm = () => {
                     type="email"
                     name="email"
                     id="email"
-                    value={formData.email} // Set value to email from formData
+                    value={email} // Set value to email from formData
                     onChange={handleChange}
                 />
                 {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
@@ -79,7 +79,7 @@ const RegistrationForm = () => {
                     type="password"
                     name="password"
                     id="password"
-                    value={formData.password} // Set value to password from formData
+                    value={password} // Set value to password from formData
                     onChange={handleChange}
                 />
                 {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
