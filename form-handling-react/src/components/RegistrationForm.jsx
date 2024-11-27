@@ -1,4 +1,4 @@
-// src/components/RegistrationForm.js
+// src/components/RegistrationForm.jsx
 import React, { useState } from 'react';
 
 const RegistrationForm = () => {
@@ -21,8 +21,16 @@ const RegistrationForm = () => {
     const validate = () => {
         const newErrors = {};
         if (!formData.username) newErrors.username = 'Username is required';
-        if (!formData.email) newErrors.email = 'Email is required';
-        if (!formData.password) newErrors.password = 'Password is required';
+        if (!formData.email) {
+            newErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors.email = 'Email is invalid';
+        }
+        if (!formData.password) {
+            newErrors.password = 'Password is required';
+        } else if (formData.password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters long';
+        }
         return newErrors;
     };
 
@@ -34,42 +42,47 @@ const RegistrationForm = () => {
         } else {
             console.log('Form submitted:', formData);
             // Here you would typically handle the API request
+            setFormData({ username: '', email: '', password: '' }); // Clear form after submission
+            setErrors({}); // Clear errors after successful submission
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <div>
-                <label>Username:</label>
+                <label htmlFor="username">Username:</label>
                 <input
                     type="text"
                     name="username"
-                    value={formData.username}
+                    id="username"
+                    value={formData.username} // Binding to state
                     onChange={handleChange}
                 />
                 {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
             </div>
             <div>
-                <label>Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="email"
                     name="email"
-                    value={formData.email}
+                    id="email"
+                    value={formData.email} // Binding to state
                     onChange={handleChange}
                 />
                 {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
             </div>
             <div>
-                <label>Password:</label>
+                <label htmlFor="password">Password:</label>
                 <input
                     type="password"
                     name="password"
-                    value={formData.password}
+                    id="password"
+                    value={formData.password} // Binding to state
                     onChange={handleChange}
                 />
                 {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
             </div>
-            <button type="submit" onSubmit={handleSubmit}>Register</button>
+            <button type="submit">Register</button>
         </form>
     );
 };
