@@ -1,4 +1,3 @@
-// src/components/RegistrationForm.jsx
 import React, { useState } from 'react';
 
 const RegistrationForm = () => {
@@ -20,17 +19,24 @@ const RegistrationForm = () => {
 
     const validate = () => {
         const newErrors = {};
-        if (!formData.username) newErrors.username = 'Username is required';
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        const { username, email, password } = formData;
+
+        const requiredFields = { username, email, password };
+
+        Object.entries(requiredFields).forEach(([key, value]) => {
+            if (!value) {
+                newErrors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
+            }
+        });
+
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
             newErrors.email = 'Email is invalid';
         }
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        } else if (formData.password.length < 6) {
+
+        if (password && password.length < 6) {
             newErrors.password = 'Password must be at least 6 characters long';
         }
+
         return newErrors;
     };
 
@@ -41,9 +47,8 @@ const RegistrationForm = () => {
             setErrors(validationErrors);
         } else {
             console.log('Form submitted:', formData);
-            // Here you would typically handle the API request
-            setFormData({ username: '', email: '', password: '' }); // Clear form after submission
-            setErrors({}); // Clear errors after successful submission
+            setFormData({ username: '', email: '', password: '' });
+            setErrors({});
         }
     };
 
@@ -55,7 +60,7 @@ const RegistrationForm = () => {
                     type="text"
                     name="username"
                     id="username"
-                    value={username} // Binding to state
+                    value={formData.username}
                     onChange={handleChange}
                 />
                 {errors.username && <p style={{ color: 'red' }}>{errors.username}</p>}
@@ -66,7 +71,7 @@ const RegistrationForm = () => {
                     type="email"
                     name="email"
                     id="email"
-                    value={email} // Binding to state
+                    value={formData.email}
                     onChange={handleChange}
                 />
                 {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
@@ -77,7 +82,7 @@ const RegistrationForm = () => {
                     type="password"
                     name="password"
                     id="password"
-                    value={password} // Binding to state
+                    value={formData.password}
                     onChange={handleChange}
                 />
                 {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
