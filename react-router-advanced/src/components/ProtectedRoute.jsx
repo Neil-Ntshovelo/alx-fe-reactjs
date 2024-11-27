@@ -1,9 +1,20 @@
-// src/components/ProtectedRoute.jsx
-import React from 'react';
-import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children, isAuthenticated }) => {
-  return isAuthenticated ? children : <Navigate to="/" />;
+import { useState, useEffect } from 'react';
+
+const useAuth = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+   
+    const token = localStorage.getItem('authToken'); // Example: Check local storage for a token
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  return isAuthenticated;
 };
 
-export default ProtectedRoute;
+export default useAuth;
