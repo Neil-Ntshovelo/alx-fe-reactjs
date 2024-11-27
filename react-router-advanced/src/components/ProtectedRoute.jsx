@@ -1,20 +1,16 @@
 
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth'; 
 
-const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = useAuth(); 
 
-  useEffect(() => {
-   
-    const token = localStorage.getItem('authToken'); // Example: Check local storage for a token
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
-  return isAuthenticated;
+  return children;
 };
 
-export default useAuth;
+export default ProtectedRoute;
