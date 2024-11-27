@@ -3,11 +3,12 @@ import React from 'react';
 import './App.css';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
-import Home from './pages/Home'; 
-import NotFound from './pages/NotFound'; 
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import BlogPost from './components/BlogPost'; // Import the BlogPost component
 
 const App = () => {
-  const isAuthenticated = false; 
+  const isAuthenticated = false;
 
   return (
     <Router>
@@ -21,6 +22,7 @@ const App = () => {
             </ProtectedRoute>
           } 
         />
+        <Route path="/blog/:id" element={<BlogPost />} /> {/* Add the BlogPost route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
