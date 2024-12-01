@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function UserProfile({ name, description }) {
   return (
-    <div className="user-profile bg-gray-100 p-4 sm:p-6 md:p-8 max-w-xs sm:max-w-sm md:max-w-md mx-auto my-20 rounded-lg shadow-lg">
+    <div className="user-profile bg-gray-100 sm:p-4 sm:p-6 md:p-8 max-w-xs sm:max-w-sm md:max-w-md mx-auto my-20 rounded-lg shadow-lg">
       <img 
         src="https://via.placeholder.com/150"
         alt={`${name}'s profile`} 
