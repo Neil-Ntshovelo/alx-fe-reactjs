@@ -9,7 +9,7 @@ function UserProfile({ name, description }) {
         alt={`${name}'s profile`} 
         className="rounded-full w-24 h-24 sm:w-28 sm:h-28 lg:w-36 lg:h-36 mx-auto" 
       />
-      <h1 className="text-lg sm:text-xl lg:text-2xl text-blue-800 my-4">{name}</h1>
+      <h1 className="text-lg sm:text-xl md:text-xl lg:text-2xl text-blue-800 my-4">{name}</h1>
       <p className="text-sm sm:text-base lg:text-lg text-gray-600">{description}</p>
     </div>
   );
