@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
+import data from '../data.json';
 
 const HomePage = ({ recipes }) => {
   const [loading, setLoading] = useState(false);
