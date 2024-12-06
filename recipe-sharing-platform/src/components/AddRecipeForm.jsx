@@ -71,7 +71,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Recipe Title Input */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-            Recipe Title
+            Recipe title
           </label>
           <input
             type="text"
@@ -86,7 +86,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Ingredients Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ingredients">
-            Ingredients (comma separated)
+            ingredients (comma separated)
           </label>
           <textarea
             id="ingredients"
@@ -101,7 +101,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Instructions Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instructions">
-            Preparation Steps
+            preparation Steps
           </label>
           <textarea
             id="instructions"
