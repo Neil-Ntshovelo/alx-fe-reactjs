@@ -8,15 +8,9 @@ const AddRecipeForm = ({ onAddRecipe }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors({});
-    setSuccessMessage('');
-    setIsSubmitting(true);
-
-    // Validation
+  // Validation function
+  const validate = () => {
     const newErrors = {};
-
     if (!title) {
       newErrors.title = 'Recipe title is required.';
     }
@@ -31,9 +25,19 @@ const AddRecipeForm = ({ onAddRecipe }) => {
     if (!instructions) {
       newErrors.instructions = 'Instructions are required.';
     }
+    return newErrors;
+  };
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+    setSuccessMessage('');
+    setIsSubmitting(true);
+
+    // Validate the form
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       setIsSubmitting(false);
       return;
     }
@@ -71,7 +75,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Recipe Title Input */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
-            Recipe title
+            Recipe Title
           </label>
           <input
             type="text"
@@ -86,7 +90,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Ingredients Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ingredients">
-            ingredients (comma separated)
+            Ingredients (comma separated)
           </label>
           <textarea
             id="ingredients"
@@ -101,13 +105,13 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Instructions Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instructions">
-            preparation steps
+            Preparation steps
           </label>
           <textarea
             id="instructions"
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.instructions ? 'border-red-500' : ''}`}
+            className={`shadow appearance-none border rounded w-full py-2 px -3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.instructions ? 'border-red-500' : ''}`}
             rows="4"
             required
           />
