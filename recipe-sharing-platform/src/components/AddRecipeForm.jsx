@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 const AddRecipeForm = ({ onAddRecipe }) => {
@@ -6,20 +5,26 @@ const AddRecipeForm = ({ onAddRecipe }) => {
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
+    setIsSubmitting(true);
 
     // Validation
     if (!title || !ingredients || !instructions) {
       setError('All fields are required.');
+      setIsSubmitting(false);
       return;
     }
 
     const ingredientsArray = ingredients.split(',').map(ingredient => ingredient.trim());
     if (ingredientsArray.length < 2) {
       setError('Please provide at least two ingredients.');
+      setIsSubmitting(false);
       return;
     }
 
@@ -36,13 +41,17 @@ const AddRecipeForm = ({ onAddRecipe }) => {
     setTitle('');
     setIngredients('');
     setInstructions('');
+    setSuccessMessage('Recipe added successfully!');
+    setIsSubmitting(false);
   };
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl md:text-4xl font-bold text-center mb-10 text-red-600">Add a New Recipe</h1>
       {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+      {successMessage && <div className="text-green-500 text-center mb-4">{successMessage}</div>}
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
+        {/* Recipe Title Input */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
             Recipe Title
@@ -56,6 +65,8 @@ const AddRecipeForm = ({ onAddRecipe }) => {
             required
           />
         </div>
+
+        {/* Ingredients Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="ingredients">
             Ingredients (comma separated)
@@ -69,6 +80,8 @@ const AddRecipeForm = ({ onAddRecipe }) => {
             required
           />
         </div>
+
+        {/* Instructions Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instructions">
             Cooking Instructions
@@ -82,11 +95,14 @@ const AddRecipeForm = ({ onAddRecipe }) => {
             required
           />
         </div>
+
+        {/* Submit Button */}
         <button
           type="submit"
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={isSubmitting}
         >
-          Add Recipe
+          {isSubmitting ? 'Adding...' : 'Add Recipe'}
         </button>
       </form>
     </div>
