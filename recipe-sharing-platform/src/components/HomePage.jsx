@@ -1,6 +1,7 @@
-
+// src/components/HomePage.jsx
 import React, { useState, useEffect } from 'react';
-import recipesData from '../data.json';
+import { Link } from 'react-router-dom'; 
+import recipesData from '../data.json'; 
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -9,7 +10,7 @@ const HomePage = () => {
 
   useEffect(() => {
     try {
-    
+  
       setRecipes(recipesData);
     } catch (err) {
       setError('Failed to load recipes');
@@ -39,9 +40,10 @@ const HomePage = () => {
             <div className="p-2 sm:p-4">
               <h2 className="text-lg sm:text-xl font-semibold text-gray-600">{recipe.title}</h2>
               <p className="text-sm sm:text-base text-gray-500">{recipe.summary}</p>
-              <a href={`/RecipeDetails/${recipe.id}`} className="text-red-500 hover:underline mt-1 inline-block text-sm sm:text-base">
+        
+              <Link to={`/RecipeDetails/${recipe.id}`} className="text-red-500 hover:underline mt-1 inline-block text-sm sm:text-base">
                 View Recipe
-              </a>
+              </Link>
             </div>
           </div>
         ))}
