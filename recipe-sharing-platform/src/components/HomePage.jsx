@@ -1,6 +1,6 @@
-// src/components/HomePage.js
+
 import React, { useState, useEffect } from 'react';
-import recipesData from '../data.json'; // Adjust the path if necessary
+import recipesData from '../data.json';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -9,7 +9,7 @@ const HomePage = () => {
 
   useEffect(() => {
     try {
-      // Simulating data fetching
+    
       setRecipes(recipesData);
     } catch (err) {
       setError('Failed to load recipes');
