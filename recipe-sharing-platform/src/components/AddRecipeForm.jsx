@@ -84,7 +84,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
         {/* Instructions Textarea */}
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="instructions">
-            Cooking Instructions
+          preparation steps 
           </label>
           <textarea
             id="instructions"
