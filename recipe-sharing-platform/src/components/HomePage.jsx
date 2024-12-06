@@ -39,7 +39,7 @@ const HomePage = () => {
             <div className="p-2 sm:p-4">
               <h2 className="text-lg sm:text-xl font-semibold text-gray-600">{recipe.title}</h2>
               <p className="text-sm sm:text-base text-gray-500">{recipe.summary}</p>
-              <a href={`/recipes/${recipe.id}`} className="text-red-500 hover:underline mt-1 inline-block text-sm sm:text-base">
+              <a href={`/RecipeDetails/${recipe.id}`} className="text-red-500 hover:underline mt-1 inline-block text-sm sm:text-base">
                 View Recipe
               </a>
             </div>
