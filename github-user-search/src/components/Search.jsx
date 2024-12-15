@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { fetchUser} from '../services/githubService'; 
+import { fetchUser  } from '../services/githubService'; 
 
 const Search = () => {
     const [username, setUsername] = useState('');
-    const [userData, setUser] = useState(null); 
+    const [userData, setUser, Data] = useState(null); // Fixed the variable name here
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -15,11 +15,11 @@ const Search = () => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-        setUser (null); 
+        setUser, Data(null); // Fixed the variable name here
 
         try {
             const data = await fetchUser (username); 
-            setUser (data); 
+            setUser, Data(data); // Fixed the variable name here
         } catch (err) {
             setError('Looks like we can\'t find the user');
         } finally {
