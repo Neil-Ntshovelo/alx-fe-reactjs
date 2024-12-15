@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-
+const API_URL = 'https://api.github.com/users';
 
 export const fetchUser  = async (username) => {
     try {
-        const response = await axios.get(`https://api.github.com/users/${username}`, {
+        const response = await axios.get(`${API_URL}/${username}`, {
             headers: {
                 Authorization: `token ${process.env.REACT_APP_GITHUB_API_KEY}`, 
             },
