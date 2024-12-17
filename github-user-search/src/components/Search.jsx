@@ -1,60 +1,61 @@
 import React, { useState } from 'react';
-import { fetchUser Data } from './services/githubService'; // Correct function name
+import { fetchUserData } from '../services/githubService';
 
 const Search = () => {
-  const [username, setUsername] = useState('');
-  const [userData, setUser Data] = useState(null); // Corrected variable name
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+    const [username, setUsername] = useState('');
+    const [userData, setUserData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
-  const handleInputChange = (e) => {
-    setUsername(e.target.value);
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setUserData(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setUser Data(null); 
+        try {
+            const data = await fetchUserData(username);
+            setUserData(data);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    try {
-      const data = await fetchUser Data(username); 
-      setUser Data(data);
-    } catch (err) {
-      setError('Looks like we can\'t find the user');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={handleInputChange}
-          placeholder="Enter GitHub username"
-          required
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {userData && (
-        <div>
-          <h2>{userData.name}</h2>
-          <img src={userData.avatar_url} alt={userData.name} width="100" />
-          <p>
-            <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-              View Profile
-            </a>
-          </p>
+    return (
+        <div className="max-w-md mx-auto p-4">
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+                <input
+                    type="text"
+                    value={username}
+                    placeholder="GitHub Username"
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                    type="submit"
+                    className={`bg-blue-500 text-white rounded-md p-2 transition duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
+                    disabled={loading}
+                >
+                    {loading ? 'Searching...' : 'Search'}
+                </button>
+            </form>
+            {loading && <p className="text-gray-500">Loading...</p>}
+            {error && <p className="text-red-500">Looks like we can't find the user</p>}
+            {userData && (
+                <div className="mt-4 p-4 border border-gray-300 rounded-md">
+                    <h2 className="text-xl font-semibold text-gray-600">{userData.name}</h2>
+                    <img src={userData.avatar_url} alt={userData.name} className="w-24 h-24 rounded-full mt-2 " />
+                    <p className="mt-2">
+                        <a href={userData.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                            View Profile
+                        </a>
+                    </p>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default Search;
