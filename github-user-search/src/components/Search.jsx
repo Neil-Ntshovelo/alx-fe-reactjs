@@ -17,7 +17,7 @@ const Search = () => {
             const data = await fetchUserData(username);
             setUserData(data);
         } catch (err) {
-            setError(err.message);
+            setError("Looks like we cant find the user");
         } finally {
             setLoading(false);
         }
@@ -42,11 +42,11 @@ const Search = () => {
                 </button>
             </form>
             {loading && <p className="text-gray-500">Loading...</p>}
-            {error && <p className="text-red-500">Looks like we can't find the user</p>}
+            {error && <p className="text-red-500">{error}</p>}
             {userData && (
                 <div className="mt-4 p-4 border border-gray-300 rounded-md">
-                    <h2 className="text-xl font-semibold text-gray-600">{userData.name}</h2>
-                    <img src={userData.avatar_url} alt={userData.name} className="w-24 h-24 rounded-full mt-2 " />
+                    <h2 className="text-xl font-semibold text-gray-600">{userData.name || userData.login}</h2>
+                    <img src={userData.avatar_url} alt={userData.name || userData.login} className="w-24 h-24 rounded-full mt-2" />
                     <p className="mt-2">
                         <a href={userData.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
                             View Profile
